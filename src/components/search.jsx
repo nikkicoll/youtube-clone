@@ -18,13 +18,12 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        Search:
         <input
           // This input value will only change if the state changes
           value={this.state.term}
           // Must bind 'this' to the fn because otherwise referring to wrong object
           onChange={this.onInputChange.bind(this)}
-          placeholder='search'
+          placeholder='Search'
         />
       </div>
     );
