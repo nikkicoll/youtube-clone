@@ -7,7 +7,6 @@ import React, { Component } from 'react';
 // ReactDOM is it's own library to interact with the actual DOM
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search';
-import VideoList from './components/videoList';
 import YouTubeAPISearch from 'youtube-api-search';
 
 const API_KEY = 'AIzaSyCBiRbyMJvxs4E-XkIaIUq9gWsNGdp35EQ';
@@ -29,13 +28,11 @@ class App extends Component {
     });
   }
 
-  // 'videos' is a prop we are passing down to VideoList
   render() {
     return (
       <div>
         <h1>YouTube</h1>
         <SearchBar />
-        <VideoList videos={this.state.videos}/>
       </div>
     );
   }
