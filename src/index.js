@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 // ReactDOM is it's own library to interact with the actual DOM
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search';
+import VideoList from './components/videoList';
 import YouTubeAPISearch from 'youtube-api-search';
 
 const API_KEY = 'AIzaSyCBiRbyMJvxs4E-XkIaIUq9gWsNGdp35EQ';
@@ -23,8 +24,9 @@ class App extends Component {
     }
     // Whenever the app starts up this constructor method will be invoked right away and we get the videos
     // from YouTube right away
-    YouTubeAPISearch({ key: API_KEY, term: 'weight loss'}, (data) => {
+    YouTubeAPISearch({ key: API_KEY, term: 'cats'}, (data) => {
       this.setState({ videos: data });
+      console.log('VIDEOS: ', data);
     });
   }
 
@@ -33,6 +35,7 @@ class App extends Component {
       <div>
         <h1>YouTube</h1>
         <SearchBar />
+        <VideoList videos={this.state.videos}/>
       </div>
     );
   }
