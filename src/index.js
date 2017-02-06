@@ -24,12 +24,15 @@ class App extends Component {
     }
     // Whenever the app starts up this constructor method will be invoked right away and we get the videos
     // from YouTube right away
-    YouTubeAPISearch({ key: API_KEY, term: 'cats'}, (data) => {
+    this.onSearchInput('cats');
+  }
+
+  onSearchInput(term) {
+    YouTubeAPISearch({ key: API_KEY, term: term}, (data) => {
       this.setState(
         { videos: data,
           selectedVideo: data[0]
-       });
-      console.log('VIDEOS: ', data);
+        });
     });
   }
 
@@ -37,9 +40,13 @@ class App extends Component {
     return (
       <div>
         <h1>YouTube</h1>
-        <SearchBar />
+        <SearchBar onSearchTermChange={ (term) => {this.onSearchInput(term)}}/>
         <VideoDetail video={this.state.selectedVideo}/>
-        <VideoList videos={this.state.videos}/>
+          {/* When VideoList calls onVideoSelect fn, App's state is updated and components re-render*/}
+        <VideoList
+          onVideoSelect={ (selectedVideo) => {this.setState({ selectedVideo: selectedVideo})}}
+          videos={this.state.videos}
+        />
       </div>
     );
   }

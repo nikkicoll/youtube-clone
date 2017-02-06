@@ -14,26 +14,28 @@ class SearchBar extends Component {
       term: ''
     }
   }
+
   // Every class-based component MUST have a render method
   render() {
     return (
-      <div>
-        Search:
+      <div className="search-bar">
         <input
+          className="search-bar-input"
           // This input value will only change if the state changes
           value={this.state.term}
           // Must bind 'this' to the fn because otherwise referring to wrong object
-          onChange={this.onInputChange.bind(this)}
+          onChange={ (event) => {this.onInputChange(event.target.value)} }
           placeholder='search'
         />
       </div>
     );
   }
 
-  onInputChange(event) {
+  onInputChange(term) {
     // You only ever update state by using this.setState
     // Whenever state is updated, the entire component (and all children) gets re-rendered
-    this.setState({ term: event.target.value});
+    this.setState({ term: term });
+    this.props.onSearchTermChange(term);
   }
 }
 
