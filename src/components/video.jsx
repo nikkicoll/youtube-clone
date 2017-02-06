@@ -2,6 +2,11 @@ import React from 'react';
 
 const Video = (props) => {
   const url = props.video.snippet.thumbnails.default.url;
+
+  const handleVideoClick = () => {
+    alert('hi');
+  }
+
   return (
     <li className="list-group-item">
       <div className="video-list media">
@@ -11,7 +16,7 @@ const Video = (props) => {
       </div>
 
       <div className="media-body">
-        <div className="media-heading">
+        <div onClick={handleVideoClick} className="media-heading">
           {props.video.snippet.title}
         </div>
       </div>

@@ -32,7 +32,7 @@ class SearchBar extends Component {
 
   onInputChange(event) {
     // You only ever update state by using this.setState
-    // Whenever state is updated, the entire component gets re-rendered
+    // Whenever state is updated, the entire component (and all children) gets re-rendered
     this.setState({ term: event.target.value});
   }
 }

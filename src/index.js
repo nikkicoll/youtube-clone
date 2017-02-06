@@ -6,27 +6,29 @@
 import React, { Component } from 'react';
 // ReactDOM is it's own library to interact with the actual DOM
 import ReactDOM from 'react-dom';
+import API_KEY from '../config';
 import SearchBar from './components/search';
 import VideoList from './components/videoList';
 import VideoDetail from './components/videoDetail';
 import YouTubeAPISearch from 'youtube-api-search';
 
-const API_KEY = 'AIzaSyCBiRbyMJvxs4E-XkIaIUq9gWsNGdp35EQ';
-
-
 // Create a component class (a factory)
-// This is considered a 'dumb' functional component
+// This is considered a class-based component
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      videos: []
+      videos: [],
+      selectedVideo: null
     }
     // Whenever the app starts up this constructor method will be invoked right away and we get the videos
     // from YouTube right away
     YouTubeAPISearch({ key: API_KEY, term: 'cats'}, (data) => {
-      this.setState({ videos: data });
+      this.setState(
+        { videos: data,
+          selectedVideo: data[0]
+       });
       console.log('VIDEOS: ', data);
     });
   }
@@ -36,7 +38,7 @@ class App extends Component {
       <div>
         <h1>YouTube</h1>
         <SearchBar />
-        <VideoDetail video={this.state.videos[0]}/>
+        <VideoDetail video={this.state.selectedVideo}/>
         <VideoList videos={this.state.videos}/>
       </div>
     );
@@ -49,4 +51,4 @@ ReactDOM.render(<App />, document.querySelector('.container'));
 
 // React has downward data flow: the most parent app should handle passing data down
 // Here the App component is going to handle fetching the data from YouTube
-  // since all other components will use that info
+  // since all other components will use that info (videos list and first video to render)
